@@ -1,0 +1,26 @@
+-- Creamos el cursor
+DECLARE usuario_cursor CURSOR FOR 
+    SELECT usuario_id, nombre, apellido FROM usuarios;
+
+-- Variables para almacenar la información de cada usuario
+DECLARE usuarios_id INT;
+DECLARE nombre VARCHAR(50);
+DECLARE apellido VARCHAR(50);
+
+
+-- Abrimos el cursor y comenzamos a recorrer la tabla
+OPEN usuario_cursor;
+
+-- Obtenemos el primer registro
+FETCH usuario_cursor INTO empleado_id, nombre, apellido;
+
+-- Mientras haya registros, mostramos la información
+WHILE (FOUND_ROWS() > 0) DO
+    SELECT CONCAT(nombre, ' ', apellido) AS usuario;
+    
+    -- Obtenemos el siguiente registro
+    FETCH usuario_cursor INTO usuario_id, nombre, apellido;
+END WHILE;
+
+-- Cerramos el cursor
+CLOSE usuario_cursor;
